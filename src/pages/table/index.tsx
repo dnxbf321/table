@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Button } from 'antd'
 import Mock from 'mockjs'
-import useTable, { Column } from '@/components/table/useTable'
+import { Column } from '@/components/table/useTable'
 import Table from '@/components/table'
 
 export default function Demo(): JSX.Element {
@@ -52,14 +52,11 @@ export default function Demo(): JSX.Element {
     return list.list
   }, [])
 
-  const { columns: xColumns, scrollWidth } = useTable<any>({ columns })
-
   return (
     <div style={{ width: 640, height: 500, margin: 'auto' }}>
       <Table<any>
         dataSource={dataSource}
-        columns={xColumns}
-        scrollWidth={scrollWidth}
+        columns={columns}
         bordered
         outerBordered
         pagination={{

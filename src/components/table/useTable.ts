@@ -16,6 +16,7 @@ export type SortOrder = 'descend' | 'ascend' | boolean
 
 export interface Column<T> {
   title: string
+  key?: string
   width?: number
   minWidth?: number
   dataIndex?: keyof T

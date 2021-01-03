@@ -7,7 +7,7 @@
 import React, { useState, useEffect, useRef, useMemo, ReactNode } from 'react'
 import { Spin, Empty, Pagination } from 'antd'
 import { useDebounceFn } from 'ahooks'
-import { Column, SortOrder } from './useTable'
+import useTable, { Column, SortOrder } from './useTable'
 import './index.less'
 
 export interface Pagination {
@@ -19,7 +19,6 @@ export interface Pagination {
 
 export interface TableProps<T = any> {
   columns: Column<T>[]
-  scrollWidth: number
   dataSource?: T[] // 当 custom 为 true 时，可不传
   legend?: string | boolean // 表头。boolean 时，可使用 slot='mc-table-legend' 渲染
   fixedHeader?: boolean
@@ -45,7 +44,6 @@ export default function TableLayout<T>(props: TableProps<T>): JSX.Element {
   const {
     columns = emptyArr,
     dataSource = emptyArr,
-    scrollWidth = '100%',
     fixedHeader = false,
     loading = false,
     wrapperClassName = '',
@@ -60,6 +58,7 @@ export default function TableLayout<T>(props: TableProps<T>): JSX.Element {
   const refWrapper = useRef<HTMLDivElement>()
   const [wrapperRect, setWrapperRect] = useState<any>()
   const [scrollX, setScrollX] = useState<any>(0)
+  const { columns: xColumns, scrollWidth } = useTable<any>({ columns })
 
   const { run: handleScroll } = useDebounceFn(
     e => {
@@ -137,7 +136,7 @@ export default function TableLayout<T>(props: TableProps<T>): JSX.Element {
           }}
         >
           <div className="mc-table-tr mc-table-thead-tr" style={{ width: scrollWidth }}>
-            {columns.map(col => (
+            {xColumns.map(col => (
               <div
                 key={`mc-table-th_${col.key || col.title}`}
                 className={`mc-table-th ${
@@ -164,7 +163,7 @@ export default function TableLayout<T>(props: TableProps<T>): JSX.Element {
                 className="mc-table-tr mc-table-tbody-tr"
                 style={{ width: scrollWidth }}
               >
-                {columns.map(col => (
+                {xColumns.map(col => (
                   <div
                     key={`mc-table-td_${rowKey(data)}_${col.key || col.title}`}
                     className={`mc-table-td ${col.className}`}
