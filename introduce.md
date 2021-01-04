@@ -8,10 +8,8 @@
 <table>
   <thead>
     <tr>
-      列 1
-    </tr>
-    <tr>
-      列 2
+      <td>列 1</td>
+      <td>列 2</td>
     </tr>
   </thead>
   <tbody>
@@ -26,7 +24,7 @@
   </tbody>
   <tfoot>
     <tr colspan="2">
-      共 2 条记录
+      <td>共 2 条记录</td>
     </tr>
   </tfoot>
 </table>
@@ -140,3 +138,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex
 ## 实现一个表格组件
 
 [source code](https://github.com/dnxbf321/table/blob/master/src/components/table/index.tsx)
+
+## 示例 source code
+
+https://github.com/dnxbf321/table/tree/master/src/pages
